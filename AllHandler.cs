@@ -46,12 +46,16 @@ namespace WebProxy
                     ms.Write(buff, 0, cnt);
             }
 
-            var ms2 = new MemoryStream(Encoding.UTF8.GetBytes(Convert.ToBase64String(ms.ToArray())));
+            var base64 = Convert.ToBase64String(ms.ToArray());
+            var bytes = Encoding.UTF8.GetBytes(base64);
+            var ms2 = new MemoryStream(bytes);
+            var bytes2 = Compress(ms2);
+            var ms3 = new MemoryStream(bytes2);
 
             //ms.Position = 0;
             cnt = 0;
 
-            while ((cnt = ms2.Read(buff, 0, buff.Length)) > 0)
+            while ((cnt = ms3.Read(buff, 0, buff.Length)) > 0)
                 context.Response.OutputStream.Write(buff, 0, cnt);
 
         }
