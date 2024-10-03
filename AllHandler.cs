@@ -30,6 +30,8 @@ namespace WebProxy
             foreach (var headerKey in res.Headers.AllKeys)
                 context.Response.Headers.Add(headerKey, res.Headers[headerKey]);
 
+			byte[] buff = new byte[0x1000];
+
             var ms = new MemoryStream();
 
             ms.Write(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 0, 10);
