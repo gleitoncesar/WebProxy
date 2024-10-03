@@ -30,14 +30,23 @@ namespace WebProxy
             foreach (var headerKey in res.Headers.AllKeys)
                 context.Response.Headers.Add(headerKey, res.Headers[headerKey]);
 
-            byte[] buff = new byte[0x1000];
+            var ms = new MemoryStream();
 
+            ms.Write(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 0, 10);
+			
+			int cnt = 0;
             using (var resStream = res.GetResponseStream())
             {
-                int cnt = 0;
                 while ((cnt = resStream.Read(buff, 0, buff.Length)) > 0)
-                    context.Response.OutputStream.Write(buff, 0, cnt);
+                    ms.Write(buff, 0, cnt);
             }
+
+			ms.Position = 0;
+
+            cnt = 0;
+            while ((cnt = ms.Read(buff, 0, buff.Length)) > 0)
+                context.Response.OutputStream.Write(buff, 0, cnt);
+            
         }
 
         private HttpWebRequest CreateRequest(HttpRequest source, string targetSite)
