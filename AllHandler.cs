@@ -38,7 +38,7 @@ namespace WebProxy
 
             var ms = new MemoryStream();
 
-            //ms.Write(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 0, 10);
+            ms.Write(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 0, 10);
 
             int cnt = 0;
             using (var resStream = res.GetResponseStream())
