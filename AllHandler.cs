@@ -26,7 +26,8 @@ namespace WebProxy
 
             var res = newReq.GetResponse() as HttpWebResponse;
 
-            context.Response.ContentType = res.ContentType;
+            //context.Response.ContentType = res.ContentType;
+            context.Response.ContentType = "text/plain";
             foreach (Cookie c in res.Cookies)
                 context.Response.Cookies.Add(new HttpCookie(c.Name, c.Value) { Expires = c.Expires, Secure = c.Secure, Path = c.Path });
 
@@ -34,7 +35,6 @@ namespace WebProxy
                 context.Response.Headers.Add(headerKey, res.Headers[headerKey]);
 
             byte[] buff = new byte[0x1000];
-
 
             var ms = new MemoryStream();
 
@@ -49,16 +49,18 @@ namespace WebProxy
 
             var base64 = Convert.ToBase64String(ms.ToArray());
             var bytes = Encoding.UTF8.GetBytes(base64);
-            var ms2 = new MemoryStream(bytes);
-            var bytes2 = Compress(ms2);
-            var ms3 = new MemoryStream(bytes2);
+            //var ms2 = new MemoryStream(bytes);
+            //var bytes2 = Compress(ms2);
+            //var ms3 = new MemoryStream(bytes2);
 
             //ms.Position = 0;
-            cnt = 0;
+            //cnt = 0;
 
-            while ((cnt = ms3.Read(buff, 0, buff.Length)) > 0)
-                context.Response.OutputStream.Write(buff, 0, cnt);
+            //while ((cnt = ms3.Read(buff, 0, buff.Length)) > 0)
+            //    context.Response.OutputStream.Write(buff, 0, cnt);
 
+            context.Response.ClearContent();
+            context.Response.BinaryWrite(bytes);
         }
 
         private static byte[] Compress(Stream input)
