@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP app to Azure Web App - teste1
+name: Build and deploy ASP app to Azure Web App - teste3
 
 on:
   push:
@@ -52,15 +52,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0F42F1264292414EADC493BF03A345BB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B9EF0D40715541D78FE47686C56A922B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_606A74B925E44CA4A6FE0466AA888C54 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_94C9188182F74E03B7DCDC1F90E1E602 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4F487CCF97A44E3DA07F2D6C2498D083 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D60366465DBD4710A75A23BA553CF153 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'teste1'
+          app-name: 'teste3'
           slot-name: 'Production'
           package: .
           
